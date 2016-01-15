@@ -245,6 +245,7 @@ DEPENDENCIES
   guard-rspec
   hub
   launchy
+  pry
   puma
   quiet_assets
   rails (= 4.2.5)
