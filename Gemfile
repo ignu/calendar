@@ -14,8 +14,6 @@ group :development do
   gem 'spring'
 end
 
-gem 'foundation-rails'
-gem 'high_voltage'
 gem 'puma'
 gem 'slim-rails'
 
