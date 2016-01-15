@@ -1,6 +1,5 @@
 class CalendarController < ApplicationController
   def index
-    events = Hash.new
-    @calendar= CalendarWeekDecorator.new(events)
+    @calendar= CalendarWeekDecorator.new(Event.fetch)
   end
 end

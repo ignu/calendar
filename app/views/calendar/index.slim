@@ -1,3 +1,9 @@
-- @calendar.days.each do |d|
-  div.day
-    = d.name
+#calendar
+  - @calendar.days.each do |d|
+    .day
+      .name
+        = d.name
+      div class="events #{d.name.downcase}"
+        -d.events.each do |e|
+          div.event
+            = e[:name]

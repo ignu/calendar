@@ -6,13 +6,11 @@ html
       = content_for?(:title) ? yield(:title) : 'Calendar'
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Calendar'}"
     == stylesheet_link_tag "application", :media => 'all'
-    / Modernizr is required for Zurb Foundation
-    == javascript_include_tag 'vendor/modernizr'
     == javascript_include_tag 'application'
     == csrf_meta_tags
   body
     header
-      == render 'layouts/navigation'
+      h2 Workout Calendar
     main[role="main"]
       == render 'layouts/messages'
       == yield
