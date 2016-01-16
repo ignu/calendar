@@ -1,9 +1,16 @@
 #calendar
+  .day.time
+    .name Time
+    - (0..23).each do |i|
+      .timeslot.even
+        = "#{i}:00"
+      .timeslot.odd
+        = "#{i}:30"
   - @calendar.days.each do |d|
     .day
       .name
         = d.name
       div class="events #{d.name.downcase}"
         -d.events.each do |e|
-          div.event
-            = e[:name]
+          div class="event #{e.class_name}"
+            = e.name

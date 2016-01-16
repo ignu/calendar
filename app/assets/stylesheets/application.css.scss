@@ -1,15 +1,4 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- *
  *= require_tree .
  *= require_self
  */
@@ -17,13 +6,53 @@
 $header: #E0E0E0;
 $event: #1F8DD6;
 $black: #777;
+$time-slot-height: 25px;
+$total-height: $time-slot-height * 51;
+$day-width: 100px;
+$name-height: 38px;
 
 #calendar {
-  width: 100%;
-  height: 600px;
+  width: $day-width * 8;
   border: 2px solid $black;
   display: -webkit-flex;
   display: flex;
+
+  @for $i from 0 through 23 {
+    .start-#{$i}00 {
+      position: absolute;
+      top: $time-slot-height * $i * 2
+    }
+
+    .start-#{$i}30 {
+      position: absolute;
+      top: $time-slot-height * $i * 2 + $i
+    }
+
+    .length-#{$i*30} {
+      height: $time-slot-height * $i;
+    }
+  }
+
+  // how may events are in this timeslot?
+  .others-0 {
+    width: $day-width - 2;
+  }
+
+  .others-1 {
+    width: ($day-width/2) - 2;
+  }
+
+  .others-2 {
+    width: ($day-width/3) - 2;
+  }
+
+  .others-4 {
+    width: ($day-width/4) - 2;
+  }
+
+  .timeslot {
+    height: $time-slot-height;
+  }
 
   .name {
     padding: 10px;
@@ -34,13 +63,27 @@ $black: #777;
 
   .day {
     flex: 1;
-    height: 600px;
-    width: 100px;
+    height: $total-height;
+    width: $day-width;
     border: 1px solid $black;
+  }
+
+  .day.time {
+    width: 40px;
+    .timeslot {
+      color: lighten($black, 5);
+      text-align: center;
+    }
+    .timeslot.odd {
+      color: lighten($black, 40);
+      border-top: 1px dotted lighten($black, 20);
+      border-bottom: 1px solid $black;
+    }
   }
 
   .event {
     text-align: center;
     background-color: $event;
+    border: 1px solid darken($event, 5)
   }
 }

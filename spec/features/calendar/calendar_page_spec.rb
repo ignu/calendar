@@ -17,6 +17,7 @@ feature 'About page' do
 
     within ".saturday" do
       expect(page).to have_content 'Running'
+      expect(page).to have_css ".start-1100"
     end
   end
 end
