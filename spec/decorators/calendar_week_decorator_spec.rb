@@ -26,7 +26,7 @@ describe CalendarWeekDecorator do
     end
 
     it "gives events a classname corresponding to their time" do
-      expect(days.last.events.last.class_name).to match("start-1200 length-90 others-0")
+      expect(days.last.events.last.class_name).to match("start-1400 length-90 others-0")
     end
 
     it "knows how many events overlap it"
