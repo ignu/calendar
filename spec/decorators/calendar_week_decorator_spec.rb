@@ -29,6 +29,9 @@ describe CalendarWeekDecorator do
       expect(days.last.events.last.class_name).to match("start-1400 length-90 others-0")
     end
 
-    it "knows how many events overlap it"
+    it "knows how many events overlap it" do
+      last = days.last.events.last
+      expect(last.neighbors).to eq 2
+    end
   end
 end

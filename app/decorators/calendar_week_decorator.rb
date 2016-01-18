@@ -4,7 +4,19 @@ class CalendarWeekDecorator < Draper::Decorator
   # so is fine to hard code.
   DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
-  Day = Struct.new(:name, :events)
+  class Day
+    attr_accessor :name, :events
+
+    def initialize(name: name, events: events)
+      self.name = name
+      self.events = events
+    end
+
+    private
+
+      def order_events
+      end
+  end
 
   class Event
     attr_accessor :class_name, :name, :options, :others
@@ -38,7 +50,7 @@ class CalendarWeekDecorator < Draper::Decorator
   delegate_all
 
   def days
-    @days ||= DAYS.map { |d| Day.new(d, events_for(d)) }
+    @days ||= DAYS.map { |d| Day.new(name: d, events: events_for(d)) }
   end
 
   private
