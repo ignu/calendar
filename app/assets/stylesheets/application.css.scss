@@ -31,6 +31,13 @@ $name-height: 38px;
     .length-#{$i*30} {
       height: $time-slot-height * $i;
     }
+
+    @for $x from 0 through 10 {
+      .col-#{$x}.neighbors-#{$i} {
+        width: $day-width/($i + 1);
+        margin-left: ($day-width/($i + 1) * $x)
+      }
+    }
   }
 
   // how may events are in this timeslot?

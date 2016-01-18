@@ -53,7 +53,7 @@ class CalendarWeekDecorator < Draper::Decorator
     end
 
     def class_name
-      "start-#{start_time} length-#{duration} others-0".gsub(/:/, "")
+      "start-#{start_time} length-#{duration} neighbors-#{neighbors} col-#{column}".gsub(/:/, "")
     end
 
     def start_time
