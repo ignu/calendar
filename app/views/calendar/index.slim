@@ -12,5 +12,5 @@
         = d.name
       div class="events #{d.name.downcase}"
         -d.events.each do |e|
-          div class="event #{e.class_name}"
+          div class="event #{e.class_name}" title=e.name
             = e.name

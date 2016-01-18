@@ -8,8 +8,12 @@ $event: #1F8DD6;
 $black: #777;
 $time-slot-height: 25px;
 $total-height: $time-slot-height * 51;
-$day-width: 100px;
+$day-width: 150px;
 $name-height: 38px;
+$white: #FDFDFD;
+
+// HACK
+$top-offset: 125px;
 
 #calendar {
   width: $day-width * 8;
@@ -20,12 +24,12 @@ $name-height: 38px;
   @for $i from 0 through 23 {
     .start-#{$i}00 {
       position: absolute;
-      top: $time-slot-height * $i * 2
+      top: $time-slot-height * $i * 2 + $top-offset
     }
 
     .start-#{$i}30 {
       position: absolute;
-      top: $time-slot-height * $i * 2 + $i
+      top: $time-slot-height * $i * 2 + $i + $top-offset
     }
 
     .length-#{$i*30} {
@@ -33,29 +37,13 @@ $name-height: 38px;
     }
 
     @for $x from 0 through 10 {
-      .col-#{$x}.neighbors-#{$i} {
-        width: $day-width/($i + 1);
-        margin-left: ($day-width/($i + 1) * $x)
+      .col-#{$x}.max-col-#{$i} {
+        width: $day-width/($i) - 2;
+        margin-left: ($day-width/($i) * $x)
       }
     }
   }
 
-  // how may events are in this timeslot?
-  .others-0 {
-    width: $day-width - 2;
-  }
-
-  .others-1 {
-    width: ($day-width/2) - 2;
-  }
-
-  .others-2 {
-    width: ($day-width/3) - 2;
-  }
-
-  .others-4 {
-    width: ($day-width/4) - 2;
-  }
 
   .timeslot {
     height: $time-slot-height;
@@ -89,8 +77,11 @@ $name-height: 38px;
   }
 
   .event {
+    color: $white;
+    overflow: hidden;
+    text-overflow: clip ellipsis;
     text-align: center;
     background-color: $event;
-    border: 1px solid darken($event, 5)
+    border: 1px solid darken($event, 5);
   }
 }

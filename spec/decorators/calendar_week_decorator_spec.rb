@@ -13,6 +13,7 @@ describe CalendarWeekDecorator do
   let(:decorator) { CalendarWeekDecorator.new(events) }
   let(:days)      { decorator.days }
   let(:saturday)  { days.last}
+  let(:yoga)      { days.first.events.first }
 
   describe "#days" do
     it "returns an collection of days" do
@@ -27,7 +28,7 @@ describe CalendarWeekDecorator do
     end
 
     it "gives events a classname corresponding to their time" do
-      expect(days.last.events.last.class_name).to match("start-1400 length-90 others-0")
+      expect(days.last.events.last.class_name).to match("start-1400 length-90 max-col-2")
     end
 
     it "knows how to position events" do
@@ -46,6 +47,10 @@ describe CalendarWeekDecorator do
       expect(running.column).to eq 0
       expect(basketball.column).to eq 1
       expect(soccer.column).to eq 0
+
+      expect(yoga.max_columns).to eq 1
+      expect(running.max_columns).to eq 2
+      expect(basketball.max_columns).to eq 2
     end
   end
 

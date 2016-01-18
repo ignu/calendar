@@ -26,8 +26,12 @@ class CalendarWeekDecorator < Draper::Decorator
           neighbors = self.events.find_all do |other|
             other != event && event.intersects?(other)
           end
+
           event.neighbors = neighbors.count
+
           allocate_first_available_column(event, neighbors)
+
+          event.max_columns = determine_max_columns(neighbors)
         end
       end
 
@@ -36,16 +40,31 @@ class CalendarWeekDecorator < Draper::Decorator
 
         event.column = ((0..10).to_a - taken_columns).first
       end
+
+      def determine_max_columns(neighbors)
+        max_columns = neighbors.map do |e|
+          max = 0
+          neighbors.each do |n|
+            max = max + 1 if n.intersects?(e)
+          end
+          max
+        end
+
+        (max_columns.max || 0) + 1
+      end
   end
 
   class Event
     attr_accessor :class_name, :name, :options
 
-    # how many other events are there at this time?
+    # how many other events are there that intersect this event
     attr_accessor :neighbors
 
     # which column does this go in
     attr_accessor :column
+
+    # what is the most amount of columns that will overlap this event
+    attr_accessor :max_columns
 
     def initialize(options)
       self.name = options[:name]
@@ -53,7 +72,7 @@ class CalendarWeekDecorator < Draper::Decorator
     end
 
     def class_name
-      "start-#{start_time} length-#{duration} neighbors-#{neighbors} col-#{column}".gsub(/:/, "")
+      "start-#{start_time} length-#{duration} max-col-#{max_columns} col-#{column}".gsub(/:/, "")
     end
 
     def start_time
